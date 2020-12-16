@@ -1,2 +1,2 @@
-# battleship
-battleship ~ terminal based ~ python game 
+# pyship
+~ terminal based ~ python game 
