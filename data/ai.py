@@ -1,7 +1,7 @@
 # Pyship ©2020 Karl Damus, All Rights Reserved
 # ai.py
 
-import grid
+# import grid
 
 def main():
     create_map()
