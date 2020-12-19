@@ -6,10 +6,10 @@ A scalable text-based version of the classic 'Battleship' board game.
 Play on scalable board sizes. 
 
 Strategize and take the enemy out!
-- - -
+
 ## Contributing
 Pull requests are open however this is very much a learning oppurtunity for me so I will most likely not accept these requests.
-- - -
+
 ## Development
 Pretty straight forward:
 
