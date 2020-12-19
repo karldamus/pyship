@@ -1,4 +1,6 @@
-# pyship
+# Pyship
+WORK IN PROGRESS
+
 A scalable text-based version of the classic 'Battleship' board game. 
 
 Play on scalable board sizes. 
