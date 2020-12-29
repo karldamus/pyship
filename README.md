@@ -1,4 +1,4 @@
-![alt text](https://github.com/kraftdamus/pyship/github/logo.png?raw=true)
+![alt text](https://github.com/kraftdamus/pyship/blob/main/github/logo.png?raw=true)
 
 > WORK IN PROGRESS
 
