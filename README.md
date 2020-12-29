@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/pyship.svg)](https://badge.fury.io/py/pyship)
+
 ![alt text](https://github.com/kraftdamus/pyship/blob/main/github/logo.png?raw=true)
 
 WORK IN PROGRESS
