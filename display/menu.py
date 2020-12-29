@@ -1,6 +1,6 @@
 '''
 DEPRECATED --> USED FOR TESTING
-Might still have a use 
+Might still have a use in the future to remove menu code from 'game.py'
 '''
 
 import random
