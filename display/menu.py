@@ -1,3 +1,8 @@
+'''
+DEPRECATED --> USED FOR TESTING
+Might still have a use 
+'''
+
 import random
 from rich import print
 from rich.console import Console
