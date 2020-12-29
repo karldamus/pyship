@@ -6,39 +6,43 @@ from rich import print
 from rich.console import Console
 import sys
 
-from data import grid, ai
+from data import ai
 from art import art
-from display import messages
-from display import menu
+from display import messages, menu, drawGameBoards
 
 console = Console()
 
-# global variables
+# GLOBAL VARIABLES
+# 
 SIZE = 8
 SHIPS = 5
 DIFFICULTY = 2
-name = ""
-# unchanged
+PLAYER_NAME = ""
+GAME_BOARD = []
+# UNCHANGED
 MIN_BOARD_SIZE = 8
+# GAME OBJECTS
 SHIP_TYPES = [
-        {'name': ('carrier'), 'length': 5, 'points': 250, 'length': 5, 'initials': 'CA'},
-        {'name': ('battleship'), 'length': 4, 'points': 200, 'length': 4,  'initials': 'BT'},
-        {'name': ('destroyer'), 'length': 3, 'points': 150, 'length': 3,  'initials': 'DT'},
-        {'name': ('submarine'), 'length': 2, 'points': 150, 'length': 3,  'initials': 'SB'},
-        {'name': ('patrol'), 'length': 2, 'points': 50, 'length': 2,  'initials': 'PT'},
+        {'name': ('carrier'), 'length': 5, 'points': 250, 'length': 5, 'initials': 'CA', 'sunk': False},
+        {'name': ('battleship'), 'length': 4, 'points': 200, 'length': 4,  'initials': 'BT', 'sunk': False},
+        {'name': ('destroyer'), 'length': 3, 'points': 150, 'length': 3,  'initials': 'DT', 'sunk': False},
+        {'name': ('submarine'), 'length': 2, 'points': 150, 'length': 3,  'initials': 'SB', 'sunk': False},
+        {'name': ('patrol'), 'length': 2, 'points': 50, 'length': 2,  'initials': 'PT', 'sunk': False},
     ] 
+# 
 
 def main():
-    welcome()
-    gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)
-
-    START_GAME()
+    # welcome()
+    # gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)
+    # setupGame(SIZE, SHIPS, DIFFICULTY)
+    gameController()
 
 def welcome():
+    global PLAYER_NAME
     art.logo()
-    name = input("\n\n To start, please enter your name: ")
+    PLAYER_NAME = input("\n\n To start, please enter your name: ")
 
-# Start of menu functions
+''' Start of menu functions '''
 
 def displayMenu():
     print("\n  [underline]Menu:[/underline]\n")
@@ -124,22 +128,29 @@ def changeShipLimit():
         messages.error_message("Please enter a valid number!")
         changeShipLimit()      
 
-# End of menu functions
+''' End of menu functions '''
 
-def terminateGame():
-    sys.exit()
-
-def setup_game():
-    print("Game has been started")
-
-def add_pyship(coords, player_board):
+def setupGame():
+    # add code to place (or choose to auto-place) ships onto gameboard
     pass
 
-def fire_missile(coords, list_of_guesses):
+def gameController():
+    # add code to control the game throughout the rest of the program
+    # GAME_RUNNING = True
+    # while GAME_RUNNING == True:
+    print(drawGameBoards.drawEmptyGameBoard(SIZE))
     pass
 
-def game_controller():
+def placeNewShip(coords, PLAYER_BOARD):
     pass
+
+def fireMissile(coords, HIT_LIST, MISS_LIST):
+    pass
+
+def isSunk():
+    pass
+
+
 
 def terminateGame():
     sys.exit()
