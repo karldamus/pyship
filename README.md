@@ -1,6 +1,6 @@
 ![alt text](https://github.com/kraftdamus/pyship/blob/main/github/logo.png?raw=true)
 
-> WORK IN PROGRESS
+WORK IN PROGRESS
 
 A scalable text-based version of the classic 'Battleship' board game. 
 
