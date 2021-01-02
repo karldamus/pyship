@@ -23,19 +23,23 @@ GAME_BOARD = []
 MIN_BOARD_SIZE = 8
 # GAME OBJECTS
 SHIP_TYPES = [
-        {'name': ('carrier'), 'length': 5, 'points': 250, 'length': 5, 'initials': 'CA', 'sunk': False},
-        {'name': ('battleship'), 'length': 4, 'points': 200, 'length': 4,  'initials': 'BT', 'sunk': False},
-        {'name': ('destroyer'), 'length': 3, 'points': 150, 'length': 3,  'initials': 'DT', 'sunk': False},
-        {'name': ('submarine'), 'length': 2, 'points': 150, 'length': 3,  'initials': 'SB', 'sunk': False},
-        {'name': ('patrol'), 'length': 2, 'points': 50, 'length': 2,  'initials': 'PT', 'sunk': False},
+        {'name': ('carrier'), 'length': 5, 'points': 250, 'length': 5, 'initials': 'CA', 'sunk': False, 'placed': False},
+        {'name': ('battleship'), 'length': 4, 'points': 200, 'length': 4,  'initials': 'BT', 'sunk': False, 'placed': False},
+        {'name': ('destroyer'), 'length': 3, 'points': 150, 'length': 3,  'initials': 'DT', 'sunk': False, 'placed': False},
+        {'name': ('submarine'), 'length': 2, 'points': 150, 'length': 3,  'initials': 'SB', 'sunk': False, 'placed': False},
+        {'name': ('patrol'), 'length': 2, 'points': 50, 'length': 2,  'initials': 'PT', 'sunk': False, 'placed': False},
     ] 
 # 
 
 def main():
     # welcome()
     # gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)
-    # setupGame(SIZE, SHIPS, DIFFICULTY)
-    gameController()
+    setupGame()
+    # gameController()
+
+def printShipNames():
+    for i in SHIP_TYPES:
+        print(i['name'])
 
 def welcome():
     global PLAYER_NAME
@@ -132,6 +136,34 @@ def changeShipLimit():
 
 def setupGame():
     # add code to place (or choose to auto-place) ships onto gameboard
+    displaySetupGameMenu()
+
+def displaySetupGameMenu():
+    print("\n  [bold green]1.[/bold green][underline] Manually place ships.[/underline]")
+    print("  [bold green]2.[/bold green][underline] Generate ship positions.[/underline]")
+    setupOption = input("\nChoose an option (1 or 2): ")
+    if setupOption.isdigit():   
+        if int(setupOption) == 1:
+            manuallyPlaceShips()
+        elif int(setupOption) == 2:
+            automaticallyPlaceShips()
+        else:
+            messages.error_message("Please enter a valid number. 1 or 2: ")
+            displaySetupGameMenu() 
+    else:
+        messages.error_message("Please enter a valid number. 1 or 2: ")
+        displaySetupGameMenu()
+
+def manuallyPlaceShips():
+    currentlyPlacedShips = {}
+    allShipsPlaced = False
+    validMinCoordinate = (SIZE + 2) - SIZE
+    validMaxCoordinate = (SIZE + 2) 
+    while allShipsPlaced == False:
+        input("Please enter a coordinate equal to or between ({minCoord}, {minCoord}) and ({maxCoord}, {maxCoord}): ".format(minCoord = str(validMinCoordinate), maxCoord = str(validMaxCoordinate)))
+        txt1 = "My name is {fname}, I'm {age}".format(fname = "John", age = 36)
+
+def automaticallyPlaceShips():
     pass
 
 def gameController():
