@@ -1,0 +1,3 @@
+nameof -- python module from https://github.com/alexmojaki/nameof
+--- pip install nameof
+
