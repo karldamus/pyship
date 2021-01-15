@@ -59,7 +59,6 @@ def welcome():
 
 # -----------------------------------------
 # Start of menu functions
-
 def displayMenu():
     print("\n  [underline]Menu:[/underline]\n")
     print("  [bold green]1.[/bold green][underline] Start Game[/underline]")
@@ -86,13 +85,13 @@ def gameMenu(MIN_BOARD_SIZE, FUNC_SIZE, FUNC_SHIPS, FUNC_DIFFICULTY):
             if int(newMenuChoice) == 5:
                 terminateGame()
             if int(newMenuChoice) == 2:
-                # changeBoardSize()
+                # !changeBoardSize()
                 gameSettingEditor("SIZE")
             if int(newMenuChoice) == 3:
-                # changeDifficulty()
+                # !changeDifficulty()
                 gameSettingEditor("DIFFICULTY")
             if int(newMenuChoice) == 4:
-                # changeShipLimit()
+                # !changeShipLimit()
                 gameSettingEditor("SHIPS")
         
         else:
@@ -100,22 +99,25 @@ def gameMenu(MIN_BOARD_SIZE, FUNC_SIZE, FUNC_SHIPS, FUNC_DIFFICULTY):
         break
 
 def gameSettingEditor(settingToChangeInStringFormat):
-    # this function changes game settings -- usage : changeBoardSize(), changeDifficulty, changeShipLimit
+    # this function changes game settings -- usage : gameMenu()
     # 
     global SIZE
     global DIFFICULTY
     global SHIPS
 
-    newSettingsInput = int() # create variable to avoid reference before assignment and maintain order of dictionaries
+    def localMessageDict(updatedSettingsValue):
+        if updatedSettingsValue == "SIZE":
+            messageList = ["\n\tWhat would you like the size of the board to be? ", "Please enter a number greater than or equal to " + str(MIN_BOARD_SIZE), "Fantastic! Your new board size is: " + str(SIZE)]
+        if updatedSettingsValue == "DIFFICULTY":
+            messageList = ["\nWhat would you like to set the difficulty to? (Enter a number 1-3): ", "Please enter a number between 1-3", "Fantastic! Difficulty level " + str(DIFFICULTY) + " has been set"]
+        if updatedSettingsValue == "SHIPS":
+            messageList = ["\nHow many playable ships would you like access too? (Enter a number between 5-7): ", "Please enter a number between 5-7", "Fantastic! A total of " + str(SHIPS) + " are available to play with"]
+        
+        return messageList
 
     this = settingToChangeInStringFormat
-    newSettingsInput = input(localMessageDict[this + "_MESSAGES"][0])
 
-    localMessageDict = {
-        'SIZE_MESSAGES': ["\n\tWhat would you like the size of the board to be? ", "Please enter a number greater than or equal to " + str(MIN_BOARD_SIZE), "Fantastic! Your new board size is: " + str(newSettingsInput)],
-        'DIFFICULTY_MESSAGES': ["\nWhat would you like to set the difficulty to? (Enter a number 1-3): ", "Please enter a number between 1-3", "Fantastic! Difficulty level " + str(newSettingsInput) + " has been set"],
-        'SHIPS_MESSAGES': ["\nHow many playable ships would you like access too? (Enter a number between 5-7): ", "Please enter a number between 5-7", "Fantastic! A total of " + str(newSettingsInput) + " are available to play with"]
-    }
+    newSettingsInput = input(localMessageDict(this)[0])
 
     localIfStatements = {
         'SIZE_IF': (int(newSettingsInput) < MIN_BOARD_SIZE) or (int(newSettingsInput) > MAX_BOARD_SIZE),
@@ -127,89 +129,20 @@ def gameSettingEditor(settingToChangeInStringFormat):
         messages.error_message("Please enter a valid number!")
         gameSettingEditor(this)
     else:
-        if (localIfStatements[this + "_IF"]) == False: # the input was possible
+        if (localIfStatements[this + "_IF"]) == False: # *the input was possible
             globals()[this] = int(newSettingsInput)
             loading(3)
-            messages.confirmation_message(localMessageDict[this + "_MESSAGES"][2])
+            messages.confirmation_message(localMessageDict(this)[2])
             gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)
         else:
-            messages.error_message(localMessageDict[this + "_MESSAGES"][1])
+            messages.error_message(localMessageDict(this)[1])
             gameSettingEditor(this)
-
-    # boardSizeInput = input("\nWhat would you like the size of the board to be? ")
-    # if boardSizeInput.isdigit():
-    #     if (int(boardSizeInput) < MIN_BOARD_SIZE) and (int(boardSizeInput) > MAX_BOARD_SIZE):
-    #         messages.error_message("Please enter a number greater than " + str(MIN_BOARD_SIZE) + " and less than " + str(MAX_BOARD_SIZE))
-    #         changeBoardSize()
-    #     else:
-    #         SIZE = int(boardSizeInput)
-    #         messages.confirmation_message("Fantastic! Your new board size is: " + str(SIZE))
-    #         gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)    
-    # else:
-    #     messages.error_message("Please enter a valid number!")
-    #     changeBoardSize()
-    
-def loading(numberOfTimes):
-    print("\n\t", end="")
-    for i in range(numberOfTimes):
-        time.sleep(.300)
-        print(".", end="")
-    time.sleep(.300)
-    print("\n", end="")
-    
-def changeBoardSize():
-    global SIZE
-
-    boardSizeInput = input("\nWhat would you like the size of the board to be? ")
-    if boardSizeInput.isdigit():
-        if (int(boardSizeInput) < MIN_BOARD_SIZE) or (int(boardSizeInput) > MAX_BOARD_SIZE):
-            messages.error_message("Please enter a number greater than " + str(MIN_BOARD_SIZE) + " and less than " + str(MAX_BOARD_SIZE))
-            changeBoardSize()
-        else:
-            SIZE = int(boardSizeInput)
-            messages.confirmation_message("Fantastic! Your new board size is: " + str(SIZE))
-            gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)    
-    else:
-        messages.error_message("Please enter a valid number!")
-        changeBoardSize()
-
-def changeDifficulty():
-    global DIFFICULTY
-
-    difficultyInput = input("\nWhat would you like to set the difficulty to? (Enter a number 1-3): ")
-    if difficultyInput.isdigit():
-        if (int(difficultyInput) < 1) or (int(difficultyInput) > 3):
-            messages.error_message("Please enter a number between 1-3")
-            changeDifficulty()
-        else:
-            DIFFICULTY = int(difficultyInput)
-            messages.confirmation_message("Fantastic! Difficulty level " + str(DIFFICULTY) + " has been set")
-            gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)   
-    else:
-        messages.error_message("Please enter a valid number!")
-        changeDifficulty()      
-
-def changeShipLimit():
-    global SHIPS
-
-    shipLimitInput = input("\nHow many playable ships would you like access too? (Enter a number between 5-7): ")
-    if shipLimitInput.isdigit():
-        if (int(shipLimitInput) < 5) or (int(shipLimitInput) > 7):
-            messages.error_message("Please enter a number between 5-7")
-            changeShipLimit()
-        else:
-            SHIPS = int(shipLimitInput)
-            messages.confirmation_message("Fantastic! A total of " + str(SHIPS) + " are available to play with")
-            gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)   
-    else:
-        messages.error_message("Please enter a valid number!")
-        changeShipLimit()      
 
 # End of menu functions
 # -----------------------------------------
 
 def setupGame():
-    # add code to place (or choose to auto-place) ships onto gameboard
+    # TODO: add code to place (or choose to auto-place) ships onto gameboard
     displaySetupGameMenu()
 
 def displaySetupGameMenu():
@@ -241,7 +174,7 @@ def automaticallyPlaceShips():
     pass
 
 def gameController():
-    # add code to control the game throughout the rest of the program
+    # TODO: add code to control the game throughout the rest of the program
     # GAME_RUNNING = True
     # while GAME_RUNNING == True:
     print(drawGameBoards.drawEmptyGameBoard(SIZE))
@@ -256,7 +189,18 @@ def fireMissile(coords, HIT_LIST, MISS_LIST):
 def isSunk():
     pass
 
+# ==================================================================================================================== #
+# ==================================================================================================================== #
+# ==================================================================================================================== #
+# * SYSTEM *
 
+def loading(numberOfTimes):
+    print("\n\t", end="")
+    for i in range(numberOfTimes):
+        time.sleep(.300)
+        print(".", end="")
+    time.sleep(.300)
+    print("\n", end="")
 
 def terminateGame():
     sys.exit()
