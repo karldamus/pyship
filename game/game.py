@@ -4,17 +4,13 @@
 import random
 from rich import print
 from rich.console import Console
+console = Console()
+
 import sys
-
 import time
-
 from data import ai
 from art import art
-from display import messages, menu, drawGameBoards
-
-import nameof
-
-console = Console()
+from display import messages, menu, drawGameBoards as draw
 
 SIZE = 8
 SHIPS = 5
@@ -43,22 +39,18 @@ SHIP_TYPES = [
 
 def main():
     # welcome()
-
-    gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)
-    # setupGame(SIZE, SHIPS, DIFFICULTY)
+    # gameMenu(MIN_BOARD_SIZE, SIZE, SHIPS, DIFFICULTY)
+    setupGame()
     gameController()
-
-def printShipNames():
-    for i in SHIP_TYPES:
-        print(i['name'])
 
 def welcome():
     global PLAYER_NAME
-    art.logo()
+    # art.logo()
     PLAYER_NAME = input("\n\n To start, please enter your name: ")
 
-# -----------------------------------------
-# Start of menu functions
+# * -----------------------------------------
+# * Start of setup menu functions
+
 def displayMenu():
     print("\n  [underline]Menu:[/underline]\n")
     print("  [bold green]1.[/bold green][underline] Start Game[/underline]")
@@ -85,13 +77,10 @@ def gameMenu(MIN_BOARD_SIZE, FUNC_SIZE, FUNC_SHIPS, FUNC_DIFFICULTY):
             if int(newMenuChoice) == 5:
                 terminateGame()
             if int(newMenuChoice) == 2:
-                # !changeBoardSize()
                 gameSettingEditor("SIZE")
             if int(newMenuChoice) == 3:
-                # !changeDifficulty()
                 gameSettingEditor("DIFFICULTY")
             if int(newMenuChoice) == 4:
-                # !changeShipLimit()
                 gameSettingEditor("SHIPS")
         
         else:
@@ -138,8 +127,8 @@ def gameSettingEditor(settingToChangeInStringFormat):
             messages.error_message(localMessageDict(this)[1])
             gameSettingEditor(this)
 
-# End of menu functions
-# -----------------------------------------
+# * End of menu functions
+# * -----------------------------------------
 
 def setupGame():
     # TODO: add code to place (or choose to auto-place) ships onto gameboard
@@ -166,9 +155,20 @@ def manuallyPlaceShips():
     allShipsPlaced = False
     validMinCoordinate = (SIZE + 2) - SIZE
     validMaxCoordinate = (SIZE + 2) 
+    newCoordList = []
+
     while allShipsPlaced == False:
-        input("Please enter a coordinate equal to or between ({minCoord}, {minCoord}) and ({maxCoord}, {maxCoord}): ".format(minCoord = str(validMinCoordinate), maxCoord = str(validMaxCoordinate)))
-        txt1 = "My name is {fname}, I'm {age}".format(fname = "John", age = 36)
+        newCoord = input("Please enter a coordinate equal to or between ({minCoord}, {minCoord}) and ({maxCoord}, {maxCoord}): ".format(minCoord = str(validMinCoordinate), maxCoord = str(validMaxCoordinate)))
+        try:
+            newCoord = newCoord.split(",")
+            checkIfValidCoord()
+        except:
+            messages.error_message("That is not a valid coordinate.")
+        # draw.drawPlayerGameboard(SIZE, newCoordList)
+
+def checkIfValidCoord(coordinate):
+    
+
 
 def automaticallyPlaceShips():
     pass
@@ -204,6 +204,19 @@ def loading(numberOfTimes):
 
 def terminateGame():
     sys.exit()
+
+# ==================================================================================================================== #
+# ==================================================================================================================== #
+# ==================================================================================================================== #
+# * TESTING *
+
+def printShipNames():
+    for i in SHIP_TYPES:
+        print(i['name'])        
+
+# ==================================================================================================================== #
+# ==================================================================================================================== #
+# ==================================================================================================================== #
 
 if __name__ == "__main__":
     main()

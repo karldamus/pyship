@@ -22,7 +22,7 @@ def drawEmptyGameBoard(SIZE):
 def drawPlayerGuessesOnEmptyGameboard():
     pass
 
-def drawPlayerGameboard(SIZE, LIST_OF_PLAYER_SHIPS, ):
+def drawPlayerGameboard(SIZE, LIST_OF_PLAYER_SHIPS):
     generatedBoardSize = SIZE + 2
     outerGrid = []
 
